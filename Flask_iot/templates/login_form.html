@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Login form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	
+	<script src="static/Web/line_liff/line_liff_sdk.js"></script>
+    <style type="text/css">
+	
+
+
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i|Monoton");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  font-size: 14px;
+}
+
+body {
+  background: linear-gradient(to bottom, #68d8d6, #ffffff);
+  color: #454749;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Monoton, sans-serif;
+  margin-bottom: .5rem;
+}
+
+/**
+ * Tiles
+ */
+.tile {
+  background-color: #ffffff;
+  border-radius: .1rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 100%;
+  min-width: 320px;
+  max-width: 24rem;
+  overflow: hidden;
+}
+.tile .tile-header {
+  background-image: url("https://www.i-talent.com.tw/ezfiles/5/1005/img/56/NTUT01.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 12rem;
+}
+
+.tile .tile-body {
+  padding: 2rem;
+}
+
+/**
+ * Forms
+ */
+.form-input {
+  display: block;
+  position: relative;
+  margin-bottom: 1rem;
+}
+.form-input > .material-icons {
+  position: absolute;
+  font-size: 1.5rem;
+  top: 1.2rem;
+}
+.form-input > .material-icons ~ input, .form-input > .material-icons ~ .label, .form-input > .material-icons ~ .underline {
+  margin-left: 2.25rem;
+  width: calc(100% - 2.25rem);
+}
+.form-input input {
+  border: none;
+  box-shadow: none;
+  padding-top: 1.5rem;
+  padding-right: 0;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+  outline-style: none;
+  width: 100%;
+}
+.form-input input ~ .label {
+  color: #868e96;
+  font-size: 1rem;
+  margin: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  transition: top .2s,font .2s;
+  z-index: 1;
+}
+.form-input input ~ .underline {
+  background-color: #bdc1c5;
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.form-input input:hover ~ .underline, .form-input input:focus ~ .underline {
+  background-color: #07beb8;
+}
+.form-input input:hover ~ .label, .form-input input:focus ~ .label {
+  color: #07beb8;
+}
+.form-input input:focus ~ .underline {
+  height: 2px;
+  color: #07beb8;
+}
+
+.form-input input:focus ~ .label, .form-input input:valid ~ .label {
+  top: 0;
+  font-size: 0.85rem;
+}
+.form-input input:-webkit-autofill ~ .label {
+  top: 0;
+  font-size: 0.85rem;
+}
+
+/**
+ * Buttons
+ */
+.btn {
+  border-radius: .2rem;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+
+.btn, [role="button"], [type="button"] {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.btn-irenic {
+  background-color: #07beb8;
+  color: white;
+}
+.btn-irenic:hover, .btn-irenic:focus, .btn-irenic:active {
+  background-color: #06a5a0;
+}
+
+.btn-serene {
+  background-color: #3dccc7;
+  color: white;
+}
+.btn-serene:hover, .btn-serene:focus, .btn-serene:active {
+  background-color: #32beb9;
+}
+
+.btn-tranquil {
+  background-color: #68d8d6;
+  color: white;
+}
+.btn-tranquil:hover, .btn-tranquil:focus, .btn-tranquil:active {
+  background-color: #54d3d0;
+}
+
+.btn-calm {
+  background-color: #9ceaef;
+  color: white;
+}
+.btn-calm:hover, .btn-calm:focus, .btn-calm:active {
+  background-color: #86e5eb;
+}
+
+.btn-cool {
+  background-color: #c4fff9;
+  color: white;
+}
+.btn-cool:hover, .btn-cool:focus, .btn-cool:active {
+  background-color: #abfff6;
+}
+
+.btn-ice {
+  background-color: #ffffff;
+  color: white;
+}
+.btn-ice:hover, .btn-ice:focus, .btn-ice:active {
+  background-color: #f2f2f2;
+}
+
+.btn-base {
+  background-color: #454749;
+  color: white;
+}
+.btn-base:hover, .btn-base:focus, .btn-base:active {
+  background-color: #393a3c;
+}
+
+/**
+ * Utilities
+ */
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.float-right {
+  float: right;
+}
+
+/**
+ *
+ */
+.submit-container {
+  position: relative;
+}
+.submit-container #submit {
+  position: relative;
+  z-index: 2;
+  outline: none;
+  opacity: 1;
+  transition: transform .1s ease-in, opacity .1s ease-in, border-radius .1s ease-in;
+  right: -1px;
+}
+.submit-container #submit span {
+  opacity: 1;
+  transition: opacity .1s ease-in;
+}
+.submit-container #submit.pending {
+  transform: scale(0.55, 1.5);
+  background-color: #07beb8;
+  border-radius: 50%;
+  opacity: 1;
+}
+.submit-container #submit.pending span {
+  opacity: 0;
+}
+.submit-container #submit.pending ~ .login-pending {
+  opacity: 1;
+  transform: scale(1, 1);
+  z-index: 3;
+}
+.submit-container #submit.granted ~ .login-pending {
+  opacity: 1;
+  transform: translate(-9rem, -5rem) scale(18, 18); // 可修改打勾位置
+  z-index: 3;
+}
+.submit-container #submit.granted ~ .login-pending .spinner {
+  opacity: 0;
+}
+.submit-container #submit.granted ~ .login-pending .login-granted-content {
+  opacity: 1;
+}
+.submit-container .login-pending {
+  height: 3rem;
+  width: 3rem;
+  background-color: #07beb8;
+  position: absolute;
+  border-radius: 50%;
+  right: 1rem;
+  bottom: -0.5rem;
+  opacity: 0;
+  overflow: hidden;
+  transform: translate(0, 0) scale(0.5, 0.5);
+  transition: transform .2s ease-in, scale .2s ease-in;
+  z-index: 1;
+}
+.submit-container .login-pending .login-granted-content {
+  background-image: url(https://res.cloudinary.com/dgmilxzy7/image/upload/c_scale,w_700,o_25,b_rgb:07beb8/v1506735375/CodePen/ViddenPixel.jpg);
+  background-position: center;
+  background-size: cover;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity .2s ease-in .2s;
+  text-shadow: 0px 0px 20px #ffffff;
+}
+
+.submit-container .login-pending .login-granted-content .material-icons {
+  font-size: 5px;
+  position: relative;
+  left: 1.25px;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  position: relative;
+  margin: 0 auto;
+}
+.spinner .dot1, .spinner .dot2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #68d8d6;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: dot-bounce 2.0s infinite ease-in-out;
+  animation: dot-bounce 2.0s infinite ease-in-out;
+}
+.spinner .dot2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+@-webkit-keyframes dot-bounce {
+  0%, 100% {
+    -webkit-transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes dot-bounce {
+  0%, 100% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 400;
+    line-height: 1;
+    color: #fff;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="tile">
+<!--
+圖片顯示
+<div class="tile-header">
+<h2 style="color: black; opacity: .75; font-size: 4rem; display: flex; justify-content: center; align-items: center; height: 100%;">SIGN IN</h2>
+</div>
+-->
+
+	<div class="tile-body">
+		<form id="form">
+			<label class="form-input">
+				<i class="material-icons">person</i>
+				<input id="studentidinput" type="text" autofocus="true" required />
+				<span class="label">Student ID</span>
+				<span class="underline" id="student_iderror"></span>
+			</label>
+
+			<label class="form-input">
+				<i class="material-icons">lock</i>
+
+				<input id="passwordinput"  type="password" required />
+
+				<span class="label">Password</span>
+				<div class="underline" id="passworderror" ></div>
+			</label>
+
+
+			<div class="submit-container clearfix" style="margin-top: 2rem;">          
+				<div id="submit" role="button" type="button" class="btn btn-irenic float-right" tabindex="0">
+				<span>Confirm</span>
+				</div>
+
+				<div class="login-pending">
+					<div class=spinner>
+						<span class="dot1"></span>
+						<span class="dot2"></span>
+					</div>
+
+					<div class="login-granted-content">
+						<i class="material-icons">done</i>
+					</div>
+				</div>
+			</div>
+			<!--
+			<div class="login-pending">
+			<div class=spinner>
+			<span class="dot1"></span>
+			<span class="dot2"></span>
+			</div>
+
+			<div class="login-granted-content">
+			<i class="material-icons">done</i>
+			</div>
+			</div>
+			-->
+		</form>
+	</div>  
+</div>
+  
+
+
+<script type="text/javascript">
+var $btn = document.getElementById("submit");
+var $form = document.getElementById("form")
+var $password = document.getElementById("passwordinput")
+var $student_id = document.getElementById("studentidinput")
+
+window.onload = function (e) {
+    liff.init(function (data) {
+        initializeApp(data);
+    });
+};
+
+function initializeApp(data) {
+    document.getElementById('languagefield').textContent = data.language;
+    document.getElementById('viewtypefield').textContent = data.context.viewType;
+    document.getElementById('useridfield').textContent = data.context.userId;
+    document.getElementById('utouidfield').textContent = data.context.utouId;
+    document.getElementById('roomidfield').textContent = data.context.roomId;
+    document.getElementById('groupidfield').textContent = data.context.groupId;
+}
+
+function sendsuccess() {
+	liff.sendMessages( [ 
+	{
+		type: 'text',
+		text: '已添加成功'
+	} ]
+	);
+	window.setTimeout(function(){ liff.closeWindow(); }, 2000);
+}
+
+function signIn() {
+	if ($form.checkValidity()) 
+	{
+		$btn.classList.add('pending');
+		window.setTimeout(function(){ $btn.classList.add('granted'); }, 1500);
+		
+		
+		var liffuserid;
+		
+		liff.getProfile().then(
+			profile => {
+			liffuserid = profile.userId;
+			
+			if (window.XMLHttpRequest)
+			{//  IE7 , Firefox, Chrome, Opera, Safari 瀏覽器執行程式碼
+				xhr=new XMLHttpRequest();
+			}
+			else
+			{// IE6, IE5 瀏覽器執行程式碼
+				xhr=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			var url = "http://127.0.0.1:5000/api/data";
+
+			xhr.onreadystatechange=function()
+			{
+				if (xhr.readyState===4 && xhr.status===200)
+				{//代表傳送完成
+					sendsuccess();
+				}
+			};
+			xhr.open("POST", url, true);
+
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+			xhr.setRequestHeader("Access-Control-Allow-Methods", "*");
+			xhr.setRequestHeader("Access-Control-Max-Age", "100");
+			xhr.setRequestHeader("Access-Control-Allow-Headers", "X-Custom-Header,accept, content-type");
+			xhr.setRequestHeader("Access-Control-Allow-Credentials", "false");
+
+			xhr.withCredentials = false;
+			var send_json = {};
+			send_json["userid"]             = liffuserid;
+			send_json["username"]           = $student_id.value;
+			send_json["password"]           = $password.value;
+			var data = JSON.stringify(send_json);
+			xhr.send(data);
+		});
+	}
+	else
+	{
+		if ($student_id.value == '')
+		{
+			$student_iderror = document.getElementById("student_iderror")
+			$student_iderror.innerHTML = "please input the school id"
+			$student_iderror.style.color = "red"
+			window.setTimeout(function(){ $student_iderror.innerHTML = "" }, 1500);
+		}
+		if ($password.value == '')
+		{
+			$passworderror = document.getElementById("passworderror")
+			$passworderror.innerHTML = "please input the password"
+			$passworderror.style.color = "red"
+			window.setTimeout(function(){ $passworderror.innerHTML = "" }, 1500);
+		}
+		
+		//alert('請輸入學號密碼');
+	}
+}
+
+$btn.addEventListener("click", signIn);
+</script>
+</body>
+</html>

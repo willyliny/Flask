@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="no-js ie9"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js"><!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Calendar</title>
+	<!--  <link rel="shortcut icon" href="../favicon.ico">  -->
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/calendar.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="js/string_format.js"></script>
+	
+	<script src="js/modernizr.custom.63321.js"></script>
+
+	
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/calendario.js"></script>
+	
+</head>
+	
+<style type="text/css">
+
+.schedule-warp{
+	padding-right:20px;
+	padding-left:20px;
+	padding: 20px 30px;
+	border: solid 1px #ddd;
+	background-color: #f5f5f5;
+	-webkit-transition: all 0.7s cubic-bezier(0.11, 0.6, 0.24, 0.89);
+	transition: all 0.7s cubic-bezier(0.11, 0.6, 0.24, 0.89);
+}
+.schedule{
+	background-color:#fff;
+}
+.schedule-warp:hover {
+	box-shadow: 0 6px 20px rgba(0,0,0,.07);
+	border: solid 1px rgba(100,40,145,.97);
+}
+.schedule{
+	padding:100px 0px;
+	background-color: #ecedf0;
+	font-family: 'Titillium Web';
+}
+.schedule-tag{
+	color:#fff;
+	background-color: #6164b2;
+	padding:3px 8px;
+	margin-right: 15px;
+	width: 90px;
+	font-family: 'Titillium Web';
+	text-align: center;
+}
+
+.schedule-start{
+	//width: 190px;  // 設定文字顯示範圍
+}
+
+.schedule-header span{
+	display: inline-block;
+	margin-right:25px;
+}
+.schedule-header{
+	margin-bottom:80px;
+}
+.schedule-card{
+	position: relative;
+	margin-bottom: 0.7em;
+}
+.schedule-card:hover .insidebox {
+	transform: scale(1.033);
+	/* box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1); */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.schedule-card:hover:after {
+	background: #8a56d1;
+	width: 25px;
+}
+.schedule-card:after {
+	height: 2px;
+	width: 22px;
+	background: #ddd;
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: -22px;
+	transition: all 0.3s ease-in;
+}
+.insidebox { 
+	box-shadow: 0 0px 5px rgba(0,0,0,.07);
+	background: #ffffff;
+	width: 100%;
+	height: auto;
+	display: flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -webkit-flex;
+	display: -o-flex;
+	-webkit-align-items: center;
+	align-items: center;
+	padding: 10px 20px;
+	color: #6164B2;
+	transition: all 0.2s ease-in;
+/*    justify-content: center;*/
+}
+
+.day-one{
+	margin-bottom:50px;
+	font-weight: bold;
+	font-size: 20px;
+	color: #6164B2;
+	white-space:pre;    
+}
+	
+	
+.container {
+	background-color: #ffffff;
+	border-radius: .1rem;
+	//box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2);
+	position: relative;
+	width: 100%;
+	//min-width: 500px;
+	//max-width: 24rem;
+	overflow: hidden;
+}
+//update form
+table{
+	font-family:'Calibri';
+	font-size:15px;
+	background-color:#fff;
+	color:#333;
+}
+.modal-header{
+	background-color:#333;
+	color:#fff;
+}
+
+</style>
+	<body>
+		<div class="container"> 
+			<section class="main">
+				<div class="custom-calendar-wrap">
+					<div id="custom-inner" class="custom-inner">
+						<div class="custom-header clearfix">
+							<nav>
+								<span id="custom-prev" class="custom-prev"></span>
+								<span id="custom-current" class="custom-current"></span>
+								<span id="custom-next" class="custom-next"></span>
+							</nav>
+							<h2 id="custom-month" class="custom-month"></h2>
+							<h2 id="custom-year" class="custom-year"></h2>
+						</div>
+						<div id="calendar" class="fc-calendar-container"></div>
+					</div>
+				</div>
+			</section>
+		</div><!-- /container -->
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="container">
+					<div class="schedule-warp" id="day_schedule_form">
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	
+<!--updata form-->
+<div id="edit" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title">Update Data</h4>
+			</div>
+			<div class="modal-body">
+				<input id="i_time" type="text" class="form-control" name="fname" disabled="disabled" placeholder="Time">
+				<input id="i_title" type="text" class="form-control" name="fname" placeholder="Title">
+				<input id="i_content" type="text" class="form-control" name="fname" placeholder="Content">
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="up" class="btn btn-warning" data-dismiss="modal">Update</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--delete form-->
+<div id="delete" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title">Delete Data</h4>
+			</div>
+			<div class="modal-body">
+				<strong>Are you sure you want to delete this data?</strong>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="del" class="btn btn-danger" data-dismiss="modal">Delete</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<script type="text/javascript"> 
+
+
+
+
+$(function() {
+	function updateMonthYear() {
+		$( '#custom-month' ).html( $( '#calendar' ).calendario('getMonthName') );
+		$( '#custom-year' ).html( $( '#calendar' ).calendario('getYear'));
+	}
+	
+	$(document).on('finish.calendar.calendario', function(e){
+		$( '#custom-month' ).html( $( '#calendar' ).calendario('getMonthName') );
+		$( '#custom-year' ).html( $( '#calendar' ).calendario('getYear'));
+		$( '#custom-next' ).on( 'click', function() {
+			$( '#calendar' ).calendario('gotoNextMonth', updateMonthYear);
+		} );
+		$( '#custom-prev' ).on( 'click', function() {
+			$( '#calendar' ).calendario('gotoPreviousMonth', updateMonthYear);
+		} );
+		$( '#custom-current' ).on( 'click', function() {
+			$( '#calendar' ).calendario('gotoNow', updateMonthYear);
+		} );
+	});
+	
+	$('#calendar').on('shown.calendar.calendario', function(){
+		$('div.fc-row > div').on('onDayClick.calendario', function(e, dateprop) {
+			show_schedule(dateprop);
+			/*
+			if(dateprop.data) {
+				//showEvents(dateprop.data.html, dateprop);
+				show_schedule(dateprop);
+				
+			}*/
+		});
+	});
+
+	var transEndEventNames = {
+		'WebkitTransition' : 'webkitTransitionEnd',
+		'MozTransition' : 'transitionend',
+		'OTransition' : 'oTransitionEnd',
+		'msTransition' : 'MSTransitionEnd',
+		'transition' : 'transitionend'
+	},
+	transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+	$wrapper = $( '#custom-inner' );
+
+	function showEvents( contentEl, dateprop ) {
+		hideEvents();
+		var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateprop.monthname + ' '
+		+ dateprop.day + ', ' + dateprop.year + '</h4></div>' ),
+		$close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents);
+		$events.append( contentEl.join('') , $close ).insertAfter( $wrapper );
+		setTimeout( function() {
+			$events.css( 'top', '0%' );
+		}, 25);
+	}
+	
+	function hideEvents() {
+		var $events = $( '#custom-content-reveal' );
+		if( $events.length > 0 ) {   
+			$events.css( 'top', '100%' );
+			Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
+		}
+	}
+	
+	
+	function getevent() 
+	{
+		var events  = {};
+		if (window.XMLHttpRequest)
+		{//  IE7 , Firefox, Chrome, Opera, Safari 瀏覽器執行程式碼
+			xhr=new XMLHttpRequest();
+		}
+		else
+		{// IE6, IE5 瀏覽器執行程式碼
+			xhr=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
+		var url = "https://finallyproject.herokuapp.com/api/liff_app/getevent";
+		//var url = "http://127.0.0.1:5000/api/liff_app/getevent";
+
+		
+		url += "?userid=U36ade451aa79a74f6e97688f184e2283";
+		xhr.open("GET", url, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+		xhr.setRequestHeader("Access-Control-Allow-Methods", "*");
+		xhr.setRequestHeader("Access-Control-Max-Age", "100");
+		xhr.setRequestHeader("Access-Control-Allow-Headers", "X-Custom-Header,accept, content-type");
+		xhr.setRequestHeader("Access-Control-Allow-Credentials", "false");
+		xhr.withCredentials = false;
+		xhr.send();
+	}
+	
+	
+	window.onload = function() {
+		getevent()
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var myevent = JSON.parse(this.responseText);
+				$( '#calendar' ).calendario({
+					caldata : myevent,
+					displayWeekAbbr : true,
+					events: ['click', 'focus']
+				});
+			}
+		};
+		
+	};
+	
+
+
+var one_day = '<div class="day-one" style="vertical-align: middle;"  >{0}</div>'
+//{0}id_control {1}event_time   {2}event_name   {3}event_content
+//data-uid = schedule-card id
+//edit event_name
+var one_event =
+'<div class="schedule-card" id={0}>'								+
+	'<div class="insidebox">'										+
+		'<span class="schedule-tag" id={0}_time >{1}</span>'		+
+		'<span class="schedule-start" >'							+
+			'<b  id={0}_title>{2}</b>'								+
+			'<br ><span id={0}_content>{3}</span></br> '			+
+		'</span>'													+
+		'<button style="position:absolute;right:50px;"'				+
+				'type="button" data-toggle="modal"'					+
+				'data-target="#edit" data-uid="{0}"'				+
+				'class="update btn btn-warning btn-sm"'				+
+				'uid={0}_edit>'										+
+			'<span class="glyphicon glyphicon-pencil"></span>'		+
+		'</button>'													+
+		'<button style="position:absolute;right:10px;"'				+
+				'type="button" data-toggle="modal"'					+
+				'data-target="#delete" data-uid="{0}"'				+
+				'class="delete btn btn-danger btn-sm"'				+
+				'uid={0}_delete>'									+
+			'<span class="glyphicon glyphicon-trash"></span>'		+
+		'</button>'													+
+	'</div>'														+
+'</div>';
+
+
+var clickuid;
+var day_event_temp ;
+
+
+function show_schedule(dateprop)
+{
+	var insertDiv = document.getElementById("day_schedule_form");
+	day_event_temp = dateprop
+	console.log(dateprop.data);
+	/*
+	html: [], 
+	allDay: [], 
+	startTime: [], 
+	endTime: [], 
+	note: [], 
+	content: [], 
+	url: [],
+	importance: [],
+	other: []
+	
+	Date.getMonth(); 
+	Date.getDate();
+	Date.getHours()	
+	Date.getMinutes()
+	Date.getSeconds()
+	*/	
+	var eventday = "{0} {1}, {2}";
+	eventday = String.format ( eventday , dateprop.monthname , dateprop.day , dateprop.year )
+	insertDiv.innerHTML = String.format(one_day,eventday) ;
+	if ( dateprop.data )
+	{
+		for(var i = 0;i<dateprop.data.content.length;i++)
+		{
+		/*
+			console.log( dateprop.data.note[i] );
+			console.log( dateprop.data.content[i] );
+			console.log( timestr );
+			console.log( dateprop.data.endTime[i] );
+			console.log( dateprop.data.url[i] );
+			console.log( dateprop.data.importance[i] );
+		*/
+			var timestr;
+			if (dateprop.data.allDay[i] == false)
+				timestr = dateprop.data.startTime[i].getHours() + ":" +  dateprop.data.startTime[i].getMinutes()
+			else
+				timestr = "全天"
+			var fullName = String.format(one_event,i,timestr, dateprop.data.content[i] , dateprop.data.note[i]);
+			insertDiv.innerHTML += fullName;
+			if (dateprop.data.importance[i])
+			{
+				document.getElementById(i+'_title').style.color = "red" 
+				document.getElementById(i+'_content').style.color = "red" 
+			}
+			
+		}
+		if(dateprop.data.content.length <= 0)
+		{
+			insertDiv.innerHTML += String.format(one_day,"無任何事件") ;
+		}
+	}
+	else
+	{
+		insertDiv.innerHTML += String.format(one_day,"無任何事件") ;
+	}
+	
+	$(".delete").click(function(){
+		var uid = $(this).data("uid");
+		clickuid = uid;
+	});
+	
+	$(".update").click(function(){
+		var uid = $(this).data("uid");
+		clickuid = uid;
+		$("#i_time").val($('#'+clickuid+'_time').html());
+		$("#i_title").val($('#'+clickuid+'_title').html());
+		$("#i_content").val($('#'+clickuid+'_content').html());
+	});
+	
+}
+
+
+
+
+
+$("#up").click(function(){
+	var time = document.getElementById(clickuid+'_time');
+	var title = document.getElementById(clickuid+'_title');
+	var content = document.getElementById(clickuid+'_content');
+	
+	
+	var url = "https://finallyproject.herokuapp.com/api/liff_app/upevent";
+	//var url = "http://127.0.0.1:5000/api/liff_app/upevent";
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			time.innerHTML = $("#i_time").val();
+			title.innerHTML = $("#i_title").val();
+			content.innerHTML = $("#i_content").val();
+			
+			var myevent = JSON.parse(this.responseText);
+			$( '#calendar' ).calendario("setevent",myevent)
+		}
+	};
+	var sendparam = '?userid={0}&id={1}&title={2}&content={3}&time={4}'
+	sendstr = String.format(sendparam , 
+							'U36ade451aa79a74f6e97688f184e2283',
+							day_event_temp.data.api_eventid[clickuid],
+							$("#i_title").val(),
+							$("#i_content").val(),
+							$("#i_time").val() )
+	url += sendstr
+	console.log(url)
+	xhr.open("GET", url, true);
+	xhr.withCredentials = false;
+	xhr.send();
+	
+});
+
+
+$("#del").click(function(){
+	var one_event = document.getElementById(clickuid);
+	var insertDiv = document.getElementById("day_schedule_form");
+	
+	
+	var url = "https://finallyproject.herokuapp.com/api/liff_app/delevent";
+	//var url = "http://127.0.0.1:5000/api/liff_app/delevent";
+	
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			$.each(day_event_temp.data, function(i, v) 
+			{
+				v.splice(clickuid,1)
+			});
+			one_event.innerHTML = '';
+			show_schedule(day_event_temp)
+			var myevent = JSON.parse(this.responseText);
+			$( '#calendar' ).calendario("setevent",myevent)
+		}
+	};
+	var sendparam = '?userid={0}&id={1}'
+	sendstr = String.format(sendparam , 
+							'U36ade451aa79a74f6e97688f184e2283',
+							day_event_temp.data.api_eventid[clickuid] )
+	url += sendstr
+	xhr.open("GET", url, true);
+	xhr.withCredentials = false;
+	xhr.send();
+	
+	
+});
+	
+});
+
+	
+</script>
+</body>
+</html>
